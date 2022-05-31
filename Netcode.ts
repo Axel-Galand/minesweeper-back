@@ -21,8 +21,10 @@ const perMessageDeflate = {
   };
 
 class Netcode{
+    currentId: number;
     wss: WebSocketServer;
     constructor(port: number = 8081){
+        this.currentId = 0
         this.wss = new WebSocketServer({
             port,
             perMessageDeflate,
@@ -31,6 +33,7 @@ class Netcode{
           //this.wss.on("close", this.onClose.bind(this));
     }
     onConnection(ws, req) {
+        const name = this.currentId++
         const ip =
           (req.headers["x-forwarded-for"] as String)?.split(",")[0].trim() ??
           req.socket.remoteAddress;
