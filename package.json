@@ -1,0 +1,22 @@
+{
+  "name": "minesweeper-back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Axel-Galand/minesweeper-back.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Axel-Galand/minesweeper-back/issues"
+  },
+  "homepage": "https://github.com/Axel-Galand/minesweeper-back#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
