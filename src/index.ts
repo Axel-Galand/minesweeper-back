@@ -7,4 +7,4 @@ app.use(cors())
 
 app.get('/', (req, res) => res.send('🏠'))
 
-app.listen(8080, () => console.log('Server listening on 8080'))
+app.listen(8080, () => console.log('Server listening on http://localhost:8080'))
