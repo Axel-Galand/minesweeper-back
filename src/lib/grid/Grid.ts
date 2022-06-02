@@ -2,7 +2,7 @@ class Grid {
     height: number;
     width: number;
     mines: number;
-    seed: number;
+    // seed: number;
     placedMines: number = 0;
     grid: Array<Array<number>>;
 
@@ -16,15 +16,16 @@ class Grid {
         this.mines = mines;
 
         // populate empty grid
-        this.grid.fill(new Array<number>().fill(0, 0, this.width - 1), 0, this.height - 1)
+        this.grid = new Array<Array<number>>();
+        this.grid.fill(new Array<number>().fill(0, 0, this.width - 1), 0, this.height - 1);
     }
 
     distributeMines(): void {
         //TODO: use a PRNG with seeding capabilities
         while(this.placedMines < this.mines) {
             // random coords within grid
-            let x = Math.floor(Math.random() * this.width)
-            let y = Math.floor(Math.random() * this.height)
+            let x = Math.floor(Math.random() * this.width);
+            let y = Math.floor(Math.random() * this.height);
 
             // if no mine at x,y
             if (!this.grid[y][x]) {
