@@ -1,4 +1,19 @@
+import e from "cors";
+import { parse } from "path";
 import WebSocket, { WebSocketServer } from "ws";
+
+interface Coordinates {
+  x: number;
+  y: number;
+  value?: number;
+}
+
+interface NetworkMessage {
+  action?: string;
+  error?: string;
+  data: unknown;
+  id: number;
+}
 
 const perMessageDeflate = {
   zlibDeflateOptions: {
@@ -39,9 +54,21 @@ export default class Netcode {
       req.socket.remoteAddress;
     ws.send(JSON.stringify({ status: "loggedIn", data: { name } }));
     ws.on("message", (message: any) => {
-      const parsedMessage = JSON.parse(message.toString());
-      console.log("recieved message :", parsedMessage, "from user : ", name);
+      const parsedMessage: NetworkMessage = JSON.parse(message.toString());
+      console.log(
+        "recieved message :",
+        parsedMessage,
+        "from user : ",
+        name,
+        "with IP : ",
+        ip
+      );
       if (parsedMessage.action == "discover") {
+        parsedMessage.data as Array<Coordinates>;
+        parsedMessage.data = (parsedMessage.data as Array<Coordinates>).map(
+          (e) => ({ ...e, ...{ value: 0 } })
+        );
+        ws.send(JSON.stringify(parsedMessage));
       }
     });
   }
