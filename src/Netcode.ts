@@ -1,5 +1,3 @@
-import e from "cors";
-import { parse } from "path";
 import WebSocket, { WebSocketServer } from "ws";
 
 interface Coordinates {
