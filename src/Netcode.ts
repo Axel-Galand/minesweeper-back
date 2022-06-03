@@ -33,9 +33,11 @@ const perMessageDeflate = {
   // should not be compressed if context takeover is disabled.
 };
 
-export default class Netcode {
+class Netcode {
   currentId: number;
   wss: WebSocketServer;
+  //Vu qu'on peut envoyer plusieurs inputs, on retourne plusieurs array. 
+  processInput: (coords: Array<Coordinates>) => Array<Array<Coordinates>>;
   constructor(port: number = 8090) {
     this.currentId = 0;
     this.wss = new WebSocketServer({
@@ -63,11 +65,13 @@ export default class Netcode {
       );
       if (parsedMessage.action == "discover") {
         parsedMessage.data as Array<Coordinates>;
-        parsedMessage.data = (parsedMessage.data as Array<Coordinates>).map(
-          (e) => ({ ...e, ...{ value: 0 } })
-        );
+        //Vu qu'on peut envoyer plusieurs inputs, on retourne plusieurs array. du coup, [0] pour récupérer le premier
+        parsedMessage.data = this.processInput(parsedMessage.data as Array<Coordinates>)[0];
         ws.send(JSON.stringify(parsedMessage));
+
       }
     });
   }
 }
+
+export { Netcode, Coordinates }
